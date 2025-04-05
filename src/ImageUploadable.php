@@ -8,15 +8,15 @@ use Illuminate\Support\Str;
 trait ImageUploadable
 {
     // يمكن للمستخدم تحديد الحقول يدويًا في الموديل
-    protected static $images = [];
+    protected static $imageFields = [];
 
     public static function bootImageUploadable()
     {
         static::saving(function ($model) {
             // نستخدم الحقول التي حددها المستخدم
-            $images = $model::$images;
+            $imageFields = $model::$imageFields;
 
-            foreach ($images as $field) {
+            foreach ($imageFields as $field) {
                 if (request()->hasFile($field)) {
                     // رفع الصورة إلى المجلد الخاص بها
                     $model->$field = ImageUploader::upload(request()->file($field), $model);
@@ -32,9 +32,9 @@ trait ImageUploadable
     {
         $urls = [];
         // استخدام الحقول المحددة من قبل المستخدم
-        $images = $this::$images;
+        $imageFields = $this::$imageFields;
 
-        foreach ($images as $field => $directory) {
+        foreach ($imageFields as $field => $directory) {
             $urls[$field] = ImageUploader::getImage($this->$field);
         }
 
