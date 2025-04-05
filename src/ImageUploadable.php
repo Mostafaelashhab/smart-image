@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 trait ImageUploadable
 {
     // يمكن للمستخدم تحديد الحقول يدويًا في الموديل
-    protected static $imageFields = [];
+    // protected static $imageFields = [];
 
     public static function bootImageUploadable()
     {
